@@ -1,10 +1,13 @@
 require('./bootstrap');
+require('popper.js');
 
 
 import { createApp } from 'vue';
+import UsersComponent from './components/UsersComponent';
 
 const app = createApp({
     components:{
-       ExampleComponent: () => import('./components/ExampleComponent.vue') 
+       UsersComponent 
     }
-});
+})
+app.mount('#app');
