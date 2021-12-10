@@ -48,19 +48,24 @@ class UserController extends Controller
      */
     public function listUsers(Request $request)
     {
-        $users = User::select([
-            'users.id as user_id',
-            'users.name as user_name',
-            'users.email as user_email',
-            'users.position as user_position',
-            'users.phone as user_phone',
-            'users.extension as user_extension',
-            'users.enrollment as user_enrollment',
-            'users.created_at as user_created_at',
-        ])
-        ->with('roles')
+        $users = User::with('roles')
         ->latest()
         ->paginate(8);
+
+        return [
+            'pagination' =>  [
+                'total'         =>  $users->total(),
+                'current_page'  =>  $users->currentPage(),
+                'per_page'      =>  $users->perPage(),
+                'last_page'     =>  $users->lastPage(),
+                'from'          =>  $users->firstItem(),
+                'to'            =>  $users->lastPage(),
+            ],
+            'users' => $users
+        ];
+    }
+    public function listUsersByRoles(){
+        $users = User::with('roles')->latest()->paginate();
 
         return [
             'pagination' =>  [

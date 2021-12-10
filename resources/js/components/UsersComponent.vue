@@ -26,15 +26,15 @@
                             </thead>
                             <tbody v-for="user in users.data" :key="user.id">
                                 <tr>
-                                    <th scope="row">{{user.user_name}}</th>
-                                    <td>{{user.user_email}}</td>
-                                    <td>{{user.user_position}}</td>
+                                    <th scope="row">{{user.name}}</th>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.position}}</td>
                                     <td> 
                                         <p v-for="rol in user.roles" :key="rol.id">{{rol.name}}</p>
                                     </td>
-                                    <td>{{user.user_phone}}</td>
-                                    <td>{{user.user_extension}}</td>
-                                    <td>{{user.user_enrollment}}</td>
+                                    <td>{{user.phone}}</td>
+                                    <td>{{user.extension}}</td>
+                                    <td>{{user.enrollment}}</td>
                                     <td>
                                         <a href="#" :style="pointerYes">
                                             <img src="/img/ri-pencil-fill.svg">
