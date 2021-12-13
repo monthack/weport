@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Weport') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -18,7 +18,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -54,49 +53,11 @@
                                 </li>
                             @endif
                         @else
-                            <div class="col-sm-6 text-right">
-                                <div class="pt-15">
-                                    <span class="diagnostico-esr">Weport</span>
-                                    <span class="separador"></span>
-                                    <span class="dropdown">
-                                        <button class="nav-link dropdown-toggle" type="button" id="dropMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="ri-user-3-fill icon"></i> Hola, {{ Auth::user()->name }} <i class="ri-arrow-down-s-fill down"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropMenu">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
-                                                Cerrar sesión
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                        <div class="dropdown-menu" aria-labelledby="dropMenu">
-                                            <a href="{{ route('logout') }}" class="dropdown-item" >Cerrar sesión</a>
-                                        </div>
-                                    </span>
-                                </div>
-                            </div>
-                            {{-- <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
+                                <button class="dropd" type="button" id="dropMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ri-user-3-fill icon"></i> Hola, {{ Auth::user()->name }} <i class="ri-arrow-down-s-fill down"></i>
+                                </button>
                                 
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                   Hola, {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="dropMenu">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                        Cerrar sesión
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                                <div class="dropdown-menu" aria-labelledby="dropMenu">
-                                    <a href="{{ route('logout') }}" class="dropdown-item" >Cerrar sesión</a>
-                                </div>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -109,7 +70,7 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li> --}}
+                            </li>
                         @endguest
                     </ul>
                 </div>
@@ -120,6 +81,5 @@
             @yield('content')
         </main>
     </div>
-    
 </body>
 </html>

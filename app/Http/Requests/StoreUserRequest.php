@@ -28,14 +28,14 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         $max = "max:255";
-        $min = "min:17";
+        $min = "min:10";
         return [
             'name' => ['required', 'string', $max, 'regex:/^[\pL\s\-]+$/u'],
             'position' => ['required', 'string', $max],
             'phone' => ['required', $min],
             'email' => ['required', 'string', 'email', $max, 'unique:users,email','regex:/^\w+[a-z_0-9\-\.]+@\w+[0-9a-z\-\.]+\.[a-z]{2,4}$/'],
             'user_rol' => ['required'],
-            'enrollment' => ['required', 'string',$min],
+            'enrollment' => ['required', 'string'],
         ];
     }
 
@@ -59,6 +59,8 @@ class StoreUserRequest extends FormRequest
             'email.unique' => 'El correo ya está registrado.',
             'email.regex' => 'El correo no es válido.',
             'email.email' => 'El formato de correo electrónico  es incorrecto, intenta nuevamente.',
+            'enrollment.required' => 'El número de matrícula es requerido.',
+            'enrollment.string' => 'El número de matrícula debe contener números y letras.',
         ];
     }
 

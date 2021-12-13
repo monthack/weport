@@ -10,7 +10,6 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
-
 class UserController extends Controller
 {
     use HasRoles;
@@ -64,31 +63,6 @@ class UserController extends Controller
             'users' => $users
         ];
     }
-    public function listUsersByRoles(){
-        $users = User::with('roles')->latest()->paginate();
-
-        return [
-            'pagination' =>  [
-                'total'         =>  $users->total(),
-                'current_page'  =>  $users->currentPage(),
-                'per_page'      =>  $users->perPage(),
-                'last_page'     =>  $users->lastPage(),
-                'from'          =>  $users->firstItem(),
-                'to'            =>  $users->lastPage(),
-            ],
-            'users' => $users
-        ];
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -100,6 +74,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        //dd($request->all());
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -118,25 +93,20 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Function validate the specified resource in storage.
+     * @author Montserrat Vazquez Manrique | montsevm.03@gmail.com
+     * @created 13-12-2021
+     * @param UpdateUserPut $request User $user
+     * @return \Illuminate\Http\JsonResponse
+     * 
      */
-    public function show($id)
+    public function userValidate(UpdateUserRequest $request, $id)
     {
-        //
-    }
+        return response()->json([
+            'statusCode'=>200,
+            'message' =>'Datos validados correctamente'
+        ]);  
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -161,7 +131,7 @@ class UserController extends Controller
         $user->roles()->sync($request->user_rol);
 
         return response()->json([
-            'statusCode'=>200,
+            'statusCode'=> 200,
             'message' =>'Datos actualizados correctamente',
         ]); 
     }

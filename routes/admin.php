@@ -2,12 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\Admin\RolController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('admin.home');
-Route::get('list-users', [UserController::class,'listUsers'])->name('list-users');
-Route::resource('users', UserController::class)->only(['index', 'store', 'update', 'destroy'])->names('admin.users');
 Route::get('/list-roles', [RolController::class, 'listRoles'])->name('list-roles');
+Route::get('users-index', [UserController::class, 'index'])->name('admin.users.index');
+Route::get('list-users', [UserController::class,'listUsers'])->name('list-users');
+Route::post('users-store/', [UserController::class, 'store'])->name('admin.users.store');
+Route::post('users-validate/{id}', [UserController::class, 'userValidate'])->name('admin.users.validate');
+Route::post('users-update/{id}', [UserController::class, 'update'])->name('admin.users.update');
+Route::post('users-delete/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
-Route::get('list-users-by-roles', [UserController::class,'listUsersByRoles'])->name('list-users-by-roles');
