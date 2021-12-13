@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Spatie\Permission\Traits\HasRoles;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -24,7 +25,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('role:admin');
+        $this->middleware('role:administrator');
     }
 
     /**
@@ -46,7 +47,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function listUsers(Request $request)
-    {
+    {   
         $users = User::with('roles')
         ->latest()
         ->paginate(8);
@@ -85,6 +86,7 @@ class UserController extends Controller
         $user->password = Hash::make('Hola1234*');
         $user->save();
         $user->roles()->sync($request->user_rol);
+        event(new Registered($user));
 
         return response()->json([
             'statusCode'=>200,

@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'phone' => '57-30088-88888',
             'extension' => '123',
             'enrollment' => 'Ad90JKMVM',
-        ])->assignRole('admin');
+        ])->assignRole('administrator');
         
         //developmentweport
         User::create([
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'phone' => '57-30088-88888',
             'extension' => '8348',
             'enrollment' => 'Ad90JKDWT',
-        ])->assignRole('admin');
+        ])->assignRole('administrator');
 
         User::create([
             'name' => 'Empleado',
