@@ -8,6 +8,12 @@
                        Administración de usuarios
                     </h1>
                     <br>
+					<div class="alert alert-info" id="alertUser" role="alert">
+					 {{ title_message}}	al usuario con éxito!.
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
                     <div class="row">
                         <div class="caja sm mb-15 especial">
                             <a href="#" class="button-circle main link" @click.prevent="openModalAdd()"><img src="/img/ri-add-line.svg" alt="" srcset=""></a> 
@@ -97,7 +103,7 @@
             <div class="modal-content">
         		<form>
                     <div class="modal-header">
-                        <h4 class="modal-title">Eliminar usuario</h4>
+                        <h4 class="modal-title text-center">Eliminar usuario</h4>
                         <button type="button" @click="closeModal()" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -118,7 +124,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h2 class="mb-0">{{title}}</h2>
+					<h2 class="mb-0 text-center">{{title}}</h2>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModal()">
 						<span aria-hidden="true">×</span>
 					</button>
@@ -197,6 +203,7 @@
     </div>
 </template>
 <script>
+import $ from 'jquery'
 export default {
 	
     data() {
@@ -263,10 +270,10 @@ export default {
 			this.dataUser.enrollment='';
 		},
 		ocultarAlert(){
-			this.alertUser = 1;
+			$("#alertUser").hide();
 		},
 		mostrarAlert(){
-			this.alertUser = 1;
+			$("#alertUser").show();
 		},
         closeModal() {
             this.modalUpdate = 0;
@@ -313,11 +320,10 @@ export default {
 			axios.post('admin/users-store', this.dataUser).then(response=>{
 				this.modalUpdate = 0;
 				if (response && response.data.statusCode == 200){
-					this.title_message = 'Usuario agregado correctamente';
-					//$("#alertUser").show();
+					this.title_message = 'Agregamos';
+					this.mostrarAlert();
 					this.getUsers();
-					//$("#alertUser").hide();
-					
+					this.ocultarAlert();
 				}
 				else{
 					console.log(response);
@@ -354,12 +360,12 @@ export default {
 			axios.post('admin/users-validate/'+this.user_id,this.dataUser).then(response=>{
 				if (response && response.data.statusCode == 200){
 					this.modalUpdate = 0;
-					this.title_message = "Editamos la información del usuario con éxito.";			
-					//$("#alertUser").show();
+					this.title_message = "Editamos";			
+					thi.mostrarAlert();
 						axios.post('admin/users-update/'+this.user_id, this.dataUser).then(response=>{
 							 if (response && response.data.statusCode == 200){
-								//$("#alertUser").hide();
-								this.getUsers();
+								 this.getUsers();
+								this.ocultarAlert();
                     		}
                     		else{
                         		console.log(response);
@@ -384,11 +390,11 @@ export default {
 		},
         deleteUser(){
             this.closeModal()
-			this.title_message = "Eliminamos al usuario con éxito.";
-			//$("#alertUser").show();
+			this.title_message = "Eliminamos";
+			this.mostrarAlert
 			axios.post('admin/users-delete/'+this.user_id).then(response=>{
 				this.getUsers();
-				//$("#alertUser").hide();
+				this.ocultarAlert();
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -465,7 +471,7 @@ export default {
     mounted(){
         this.getUsers();
         this.getRoles();
-        //this.ocultarAlert();
+        this.ocultarAlert();
     }
 };
 </script>
@@ -478,8 +484,8 @@ export default {
         opacity: 1;
     }
     .modal{
-	background-color: rgba(0,0,0,0.7);
-}
+		background-color: rgba(0,0,0,0.7);
+	}
     .mb-15{
         margin-bottom: 15px;
     }
