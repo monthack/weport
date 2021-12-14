@@ -50,7 +50,7 @@
                                     <table width="640" cellpadding="0" cellspacing="0" border="0" class="wrapper">
                                         <tr>
                                             <td align="center" valign="top">
-                                                <img src="https://cdn.pixabay.com/photo/2017/05/31/23/44/email-marketing-2362038_960_720.png" width="600" height="154" alt="Imagen de fondo" class="img" style="width: 100%;">
+                                                <img src=" {{asset('img/email/email-marketing-gee5d67dfd_1280.png')}} " width="600" height="154" alt="Imagen de fondo" class="img" style="width: 100%;">
                                             </td>
                                         </tr>
                                     </table>
