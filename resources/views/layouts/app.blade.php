@@ -23,8 +23,13 @@
     <style>
     body{
     padding-bottom:4.2rem;
-    } 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-wrap: wrap;
     
+    } 
     .dropd,.drop-menu-bottom{
         background-color: transparent;
         border: none;
@@ -57,19 +62,19 @@
 		background-color: transparent !important;
 		color: #333333 !important;
 	}
-    /*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
     #footer {
     color: #37423b;
     font-size: 14px;
     background: #eef0ef;
-    bottom: 0;
+    align-self: flex-end;
+    width: 100%;
+    height: 100%;
+    text-align: center;
     }
     </style>
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="mx-auto" style="width: 5000px;">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <h1><a class="logo me-auto" href="{{ url('/') }}">
@@ -126,6 +131,8 @@
             @yield('content')
         </main>
     </div>
-    @include('layouts.footer')
+    <footer id="footer">
+        @include('layouts.footer')
+    </footer>
 </body>
 </html>
