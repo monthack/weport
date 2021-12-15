@@ -321,7 +321,7 @@ export default {
 				this.modalUpdate = 0;
 				if (response && response.data.statusCode == 200){
 					this.title_message = 'Agregamos';
-					this.mostrarAlert();
+					//this.mostrarAlert();
 					this.getUsers();
 					this.ocultarAlert();
 				}
@@ -361,11 +361,11 @@ export default {
 				if (response && response.data.statusCode == 200){
 					this.modalUpdate = 0;
 					this.title_message = "Editamos";			
-					thi.mostrarAlert();
+					//thi.mostrarAlert();
 						axios.post('admin/users-update/'+this.user_id, this.dataUser).then(response=>{
 							 if (response && response.data.statusCode == 200){
 								 this.getUsers();
-								this.ocultarAlert();
+								//this.ocultarAlert();
                     		}
                     		else{
                         		console.log(response);
@@ -380,6 +380,7 @@ export default {
                     console.log(response);
                 }
 			}).catch((error)=> {
+				console.log(error);
 				if (error.response.status == 422) {
 					this.errors = error.response.data.errors;
 					this.mostrarErrores();

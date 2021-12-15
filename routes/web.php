@@ -24,11 +24,13 @@ Route::get('/', function () {
 });
 
 
+
 Route::get('/', function () {
     
     return  auth()->user() ? redirect('/admin') : view('auth.login');
 });
 Auth::routes(['verify' => true]);
+//"register" => false,
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
