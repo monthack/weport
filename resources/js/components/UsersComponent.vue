@@ -8,18 +8,12 @@
                        Administración de usuarios
                     </h1>
                     <br>
-					<div class="alert alert-info" id="alertUser" role="alert">
-					 {{ title_message}}	al usuario con éxito!.
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
                     <div class="row">
                         <div class="caja sm mb-15 especial">
                             <a href="#" class="button-circle main link" @click.prevent="openModalAdd()"><img src="/img/ri-add-line.svg" alt="" srcset=""></a> 
 					    </div>
                     </div>
-                    <div class="row mb-30" >
+                    <div class="row mb-30 caja">
                         <table class="table table-hover" >
                             <thead style="border-radius: 25px;">
                                 <tr class="bg-primary">
@@ -98,7 +92,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal" :class="{mostrar:modalDelete}" id="modalDeleteUser" tabindex="-1">
+    <div class="modal" :class="{mostrarModal:modalDelete}" id="modalDeleteUser" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
         		<form>
@@ -120,7 +114,7 @@
             </div>
         </div>
     </div>
-    <div class="modal" :class="{mostrar:modalUpdate}" id="modalUpdateUser" tabindex="-1">
+    <div class="modal" :class="{mostrarModal:modalUpdate}" id="modalUpdateUser" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -203,7 +197,6 @@
     </div>
 </template>
 <script>
-import $ from 'jquery'
 export default {
 	
     data() {
@@ -211,7 +204,6 @@ export default {
             createOrEditUser:"guardar",
             title_message: '',
             title:'',
-            alertUser:0,
             modalUpdate: 0,
             modalDelete: 0,
             user_id: '',
@@ -269,12 +261,6 @@ export default {
 			this.dataUser.user_rol='';
 			this.dataUser.enrollment='';
 		},
-		ocultarAlert(){
-			$("#alertUser").hide();
-		},
-		mostrarAlert(){
-			$("#alertUser").show();
-		},
         closeModal() {
             this.modalUpdate = 0;
             this.modalDelete = 0;
@@ -321,9 +307,7 @@ export default {
 				this.modalUpdate = 0;
 				if (response && response.data.statusCode == 200){
 					this.title_message = 'Agregamos';
-					//this.mostrarAlert();
 					this.getUsers();
-					this.ocultarAlert();
 				}
 				else{
 					console.log(response);
@@ -360,12 +344,9 @@ export default {
 			axios.post('admin/users-validate/'+this.user_id,this.dataUser).then(response=>{
 				if (response && response.data.statusCode == 200){
 					this.modalUpdate = 0;
-					this.title_message = "Editamos";			
-					//thi.mostrarAlert();
 						axios.post('admin/users-update/'+this.user_id, this.dataUser).then(response=>{
 							 if (response && response.data.statusCode == 200){
 								 this.getUsers();
-								//this.ocultarAlert();
                     		}
                     		else{
                         		console.log(response);
@@ -380,7 +361,6 @@ export default {
                     console.log(response);
                 }
 			}).catch((error)=> {
-				console.log(error);
 				if (error.response.status == 422) {
 					this.errors = error.response.data.errors;
 					this.mostrarErrores();
@@ -390,12 +370,10 @@ export default {
 			});
 		},
         deleteUser(){
-            this.closeModal()
 			this.title_message = "Eliminamos";
-			this.mostrarAlert
 			axios.post('admin/users-delete/'+this.user_id).then(response=>{
+				this.modalDelete = 0;
 				this.getUsers();
-				this.ocultarAlert();
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -472,7 +450,6 @@ export default {
     mounted(){
         this.getUsers();
         this.getRoles();
-        this.ocultarAlert();
     }
 };
 </script>
@@ -480,9 +457,12 @@ export default {
     .ocultar{
         display: none;
     }
-    .mostrar {
+    .mostrarModal {
         display: list-item;
         opacity: 1;
+    }
+	.mostrar {
+        display: block;
     }
     .modal{
 		background-color: rgba(0,0,0,0.7);

@@ -37,8 +37,8 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => ['required', 'string', $max,'regex:/^[\pL\s\-]+$/u'],
             'position' => ['required', 'string', $max],
-            'phone' => ['required',$min],
-            'email' => "required|".$max."|email|unique:users,email,{$user->id}|regex:/^\w+[a-z_0-9\-\.]+@\w+[0-9a-z\-\.]+\.[a-z]{2,4}$/",
+            'phone' => ['required',$min, 'max:10'],
+            'email' => "required|".$max."|email|unique:users,email,{$user->id}",
             'user_rol' => 'required',
             'enrollment' => ['required', 'string'],
         ];
@@ -57,11 +57,11 @@ class UpdateUserRequest extends FormRequest
             'name.required' => 'El nombre es requerido.',
             'position.required' => 'El puesto es requerido.',
             'phone.required' => 'El teléfono es requerido.',
+            'phone.max' => 'El teléfono debe contener 10 dígitos.',
             'email.required' => 'El correo es requerido.',
             'user_rol.required' => 'El rol es requerido.',
             'phone.min' => 'El teléfono debe tener al menos 10 carácteres.',
             'email.unique' => 'El correo ya está registrado.',
-            'email.regex' => 'El correo no es válido.',
             'email.email' => 'El formato de correo electrónico  es incorrecto, intenta nuevamente.',
             'enrollment.required' => 'El número de matrícula es requerido.',
             'enrollment.string' => 'El número de matrícula debe contener números y letras.',

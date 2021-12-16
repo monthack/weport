@@ -71,6 +71,13 @@
     height: 100%;
     text-align: center;
     }
+}
+@media(min-width: 768px) and (max-width: 991px){ /*	MD	*/
+	.caja.lista table p,
+	.caja.lista h4{
+		font-size: 65%;
+	}
+}
     </style>
 </head>
 <body>
@@ -82,7 +89,6 @@
                 </a></h1>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
-                    <h4>Hola</h4>
                 </button>
 
                 <div class="navbar order-last order-lg-0" id="navbarSupportedContent">
