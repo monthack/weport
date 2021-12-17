@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use Spatie\Permission\Traits\HasRoles;
 use App\Http\Requests\StoreUserRequest;
@@ -156,4 +157,5 @@ class UserController extends Controller
             'message' =>'Datos eliminados correctamente',
         ]); 
     }
+
 }

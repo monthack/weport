@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Events\EmailConfirmation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -42,9 +43,9 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    $name_user_verify = $request->user()->name;
+    $user = $request->user();
 
-    $request->sendAdminConfirmation($name_user_verify);
+    EmailConfirmation::dispatch($user);
 
     return redirect('/admin');
 })->middleware(['auth', 'signed'])->name('verification.verify');
